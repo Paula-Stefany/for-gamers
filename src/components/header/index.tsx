@@ -10,7 +10,6 @@ export function Header(){
             <div className='m-auto px-4  md:max-w-7xl w-full flex text-white items-center'>
                 <nav className='flex text-[16px] items-center gap-[22px] md:gap-[47px] md:text-[18px] '>
                     <Link href={'/'} className='text-[18px] md:text-[25px]'>FOR-GAMERS</Link>
-                    <Link href={'/'}>Games</Link>
                 </nav>
             </div>
             
