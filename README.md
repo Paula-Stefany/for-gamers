@@ -51,4 +51,4 @@ O projeto foi desenvolvido com Next.js e TypeScript, utilizando Tailwind CSS par
 ![Tela inicial - Desktop](/public/homedesktop.png)
 ![Catalogo de games - Desktop](/public/catalogdesktop.png)
 ![Página de pesquisa de game - Desktop](/public/searchdesktop.png)
-![Página detalhes do game - Desktop](/public/detailsDesktop.png)
+![Página detalhes do game - Desktop](/public/detailsdesktop.png)
