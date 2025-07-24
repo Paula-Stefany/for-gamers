@@ -1,103 +1,76 @@
+import { Container } from "@/components/container";
+import { GameProps } from '@/utils/types/game'
+import Link from "next/link";
 import Image from "next/image";
+import { BsArrowRightSquare } from 'react-icons/bs';
+import { Input } from '@/components/input'
+import { GameCard } from '@/components/gamecard'
 
-export default function Home() {
+async function getDalyGame() {
+  try{
+
+    const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game_day`, {next: {revalidate: 320}})
+    return res.json();
+
+  } catch(err){
+    throw new Error('Failed to fetch data' + err);
+
+  }
+}
+
+async function getGamesData() {
+  try{
+
+    const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=games`, {next: {revalidate: 320}})
+    return res.json();
+
+  } catch(err){
+    throw new Error('Failed to fetch data' + err);
+
+  }
+}
+
+export default async function Home() {
+
+  const dalyGame: GameProps = await getDalyGame();
+  const allGames: GameProps[] = await getGamesData();
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <main className="w-full">
+        <Container>
+          <section className="flex flex-col mt-[57px]">
+            <h1 className="text-center text-[22px] md:text-[28px] font-semibold bg-gradient-to-r from-[#918E8E] via-[#706E6E] to-[#585858] text-transparent bg-clip-text mb-[57px]">We separate  a exclusive game for you</h1>
+            <Link href={`/game/${dalyGame.id}`}>
+              <div className="h-[443px]  w-full relative">
+                <div className="flex gap-4 items-center justify-center
+                 absolute z-20 bottom-0 p-3 ">
+                  <p className="font-bold text-[25px] text-white">{dalyGame.title}</p>
+                  <BsArrowRightSquare size={22} color="white"/>
+                </div>
+                <Image 
+                src={dalyGame.image_url} 
+                alt={`${dalyGame.title}`} 
+                priority={ true } 
+                quality={ 100 }
+                className="h-fit object-cover rounded-[20px] opacity-60 brightness-90 hover:opacity-70"
+                fill={true}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw">       
+                </Image>
+              </div>
+            </Link>
+            <Input/>
+           
+          </section>
+          <section className="flex flex-col mt-[57px] mb-[57px]">
+            <h2 className="text-center text-3xl mb-[57px] font-semibold bg-gradient-to-r from-[#918E8E] via-[#706E6E] to-[#585858] text-transparent bg-clip-text">Game catalog</h2>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg: grid-cols-4">
+              { allGames.map((item) => (
+                <GameCard key={item.id} item={item}/>
+                
+              )) }
+            </div>
+          </section>
+        </Container>
+      </main> 
   );
 }
