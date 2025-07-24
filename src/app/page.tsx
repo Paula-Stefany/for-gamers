@@ -37,9 +37,9 @@ export default async function Home() {
   const allGames: GameProps[] = await getGamesData();
 
   return (
-      <main className="w-full">
+      <main className="w-full mt-[200px]">
         <Container>
-          <section className="flex flex-col mt-[57px]">
+          <section className="flex flex-col">
             <h1 className="text-center text-[22px] md:text-[28px] font-semibold bg-gradient-to-r from-[#918E8E] via-[#706E6E] to-[#585858] text-transparent bg-clip-text mb-[57px]">We separate  a exclusive game for you</h1>
             <Link href={`/game/${dalyGame.id}`}>
               <div className="h-[443px]  w-full relative">
