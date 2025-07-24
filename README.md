@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# For-Gamers
+For-Gamers é um projeto web voltado para apaixonados por jogos. A aplicação consome a API do Sujeito Programador para exibir um catálogo de jogos, incluindo um jogo aleatório em destaque, e oferece uma navegação intuitiva e responsiva com busca dinâmica por título e visualização de detalhes de cada jogo.
 
-## Getting Started
+# Visão Geral
+O projeto foi desenvolvido com Next.js e TypeScript, utilizando Tailwind CSS para estilização responsiva. A aplicação faz requisições à API do Sujeito Programador para carregar dados dinâmicos dos jogos. A navegação entre páginas é gerenciada pelo roteamento interno do Next.js.
 
-First, run the development server:
+# Tecnologias Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Next.js
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- TypeScript
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- API do Sujeito Programador
 
-## Learn More
+# Funcionalidades
 
-To learn more about Next.js, take a look at the following resources:
+## Página Home com:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Exibição de um jogo aleatório em destaque
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Catálogo com todos os jogos da API
 
-## Deploy on Vercel
+- Input para digitar o nome do jogo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Página de pesquisa:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Input para digitar o nome do jogo
+
+- Busca dinâmica por título utilizando a API
+
+## Página de detalhes do jogo:
+
+- Exibição completa das informações do jogo selecionado
+
+- Recomendação de um jogo aleatório 
+
+
+## 🖼️ Screenshots
+
+### 📱 Mobile
+
+![Tela inicial - Mobile](/public/homemobile.png)
+![Catalogo de games - Mobile](/public/catalogmobile.png)
+![Página de pesquisa de game - Mobile](/public/searchmobile.png)
+![Página detalhes do game - Mobile](/public/detailsmobile.png)
+
+### 🖥️ Desktop
+
+![Tela inicial - Desktop](/public/homedesktop.png)
+![Catalogo de games - Desktop](/public/catalogdesktop.png)
+![Página de pesquisa de game - Desktop](/public/searchdesktop.png)
+![Página detalhes do game - Desktop](/public/detailsDesktop.png)
