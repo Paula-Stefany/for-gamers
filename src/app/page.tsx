@@ -6,6 +6,7 @@ import { BsArrowRightSquare } from 'react-icons/bs';
 import { Input } from '@/components/input'
 import { GameCard } from '@/components/gamecard'
 
+
 async function getDalyGame() {
   try{
 
@@ -63,7 +64,7 @@ export default async function Home() {
           </section>
           <section className="flex flex-col mt-[57px] mb-[57px]">
             <h2 className="text-center text-3xl mb-[57px] font-semibold bg-gradient-to-r from-[#918E8E] via-[#706E6E] to-[#585858] text-transparent bg-clip-text">Game catalog</h2>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg: grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               { allGames.map((item) => (
                 <GameCard key={item.id} item={item}/>
                 

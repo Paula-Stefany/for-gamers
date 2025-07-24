@@ -6,85 +6,74 @@ import { GameCard } from "@/components/gamecard";
 import { Metadata } from "next";
 
 
-interface PropsParams{
-    params: {
-        id: string;
-    }
-}
-
-// Retornar uma Promisse
-export async function generateMetadata({params}: PropsParams): Promise<Metadata> {
-
-    try{
-
-        const response: GameProps = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game&id=${params.id}`, { cache: "no-store" })
-        .then((res) => res.json())
-        .catch(() => {
-            return{
-                title: "For-Gamers - Descubra jogos incríveis"
-            }
-        })
-
-        return {
-            title: response.title,
-            description: `${response.description.slice(0, 100)}...`,
-            openGraph: {
-                title: response.title,
-                images: [response.image_url],
-            },
-            robots: {
-                index: true,
-                follow: true,
-                nocache: true,
-                googleBot: {
-                    index: true,
-                    follow: true,
-                    noimageindex: true,
-                }
-            }
-        }
-
-    } catch(err) {
-        return{
-            title: "For-Gamers - Descubra jogos incríveis"
-        }
-    }
-    
+interface PropsParams {
+  params: Promise<{ id: string }>;
 }
 
 async function getGameSorted() {
-    
-    try{
-
-        const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game_day`, { cache: "no-store" })
-        return res.json();
-
-    } catch(err){
-        throw new Error('Failed to fetch data')
-    }
-
+  try {
+    const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game_day`, { cache: "no-store" });
+    return res.json();
+  } catch {
+    throw new Error('Failed to fetch data');
+  }
 }
 
-async function getData(id: number){
-
-    try{
-
-        const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game&id=${id}`, { cache: "no-store" })
-        return res.json();
-
-    } catch(err){
-        throw new Error('Failed to fetch data');
-    }
+async function getData(id: string) {
+  try {
+    const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game&id=${id}`, { cache: "no-store" });
+    return res.json();
+  } catch {
+    throw new Error('Failed to fetch data');
+  }
 }
 
-export default async function Game({ params: {id} }: { params: {id: number} }){
+export async function generateMetadata({ params }: PropsParams): Promise<Metadata> {
+  const { id } = await params;
 
-    const game: GameProps = await getData(id);
-    const sortedGame: GameProps = await getGameSorted();
+  try {
+    const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game&id=${id}`, { cache: "no-store" });
 
-    if(!game){
-        redirect("/");
-    }
+    if (!res.ok) throw new Error("Falha ao buscar o jogo");
+
+    const response: GameProps = await res.json();
+
+    return {
+      title: response.title,
+      description: `${response.description.slice(0, 100)}...`,
+      openGraph: {
+        title: response.title,
+        images: [response.image_url],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        nocache: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          noimageindex: true,
+        },
+      },
+    };
+  } catch {
+    return {
+      title: "For-Gamers - Descubra jogos incríveis",
+    };
+  }
+}
+
+export default async function Game({ params }: PropsParams) {
+  // Aqui fazemos o await no params para extrair o id
+  const { id } = await params;
+
+  const game: GameProps = await getData(id);
+  const sortedGame: GameProps = await getGameSorted();
+
+  if (!game) {
+    redirect("/");
+  }
+
 
     return(
         <main className="text-white w-full mt-[143px]">

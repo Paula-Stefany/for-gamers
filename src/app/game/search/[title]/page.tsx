@@ -6,6 +6,9 @@ import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 
 
+interface SearchParams {
+  params: Promise<{title: string}>;
+}
 
 async function getGameData(title: string) {
 
@@ -15,13 +18,15 @@ async function getGameData(title: string) {
         const res = await fetch(`${process.env.NEXT_API_URL}/next-api/?api=game&title=${decodeTitle}`);
         return res.json();
 
-    }catch(err){
+    }catch{
         return null;
     }
     
 }
 
-export default async function Search({ params: {title} }: { params: { title: string } }){
+export default async function Search({ params } : SearchParams){
+
+    const {title} = await params;
 
     const games: GameProps[] = await getGameData(title);
 
