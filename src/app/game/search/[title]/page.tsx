@@ -31,9 +31,9 @@ export default async function Search({ params } : SearchParams){
     const games: GameProps[] = await getGameData(title);
 
     return(
-        <main className='w-full'>
+        <main className='w-full mt-[200px]'>
             <Container>
-                <section className=' mt-[57px] mb-[57px]'>
+                <section className='mb-[57px]'>
                     <Input></Input>
                     <h1 className='text-center text-[22px] mt-[57px] mb-[57px] md:text-[28px] font-semibold bg-gradient-to-r from-[#918E8E] via-[#706E6E] to-[#585858] text-transparent bg-clip-text'>Games found</h1>
 
@@ -46,7 +46,7 @@ export default async function Search({ params } : SearchParams){
                           
                         </div>
                     ) : (
-                         <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg: grid-cols-4'>
+                         <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
                             { games.map((item) => (
                             <GameCard key={item.id} item={item}/>
                             )) }
